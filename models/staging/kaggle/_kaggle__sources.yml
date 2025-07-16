@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: raw
+    description: a clone of https://www.kaggle.com/datasets/shriyashjagtap/esg-and-financial-performance-dataset
+    database: esg-project-466111
+    schema: raw
+    tables:
+      - name: company_esg_financial_dataset
+        description: raw S&P500 ESG data per company-year
+        tests:
+          - no_nulls_except_growthrate_if_2015
+          - growthrate_above_minus_100
+          - esg_between_0_100
+          - esg_overall_is_average
+          - environmental_metrics_positive
