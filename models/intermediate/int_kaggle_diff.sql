@@ -30,17 +30,17 @@ joined as (
 
         -- % Difference = (New - Old) / Average
         case
-            when (t25.carbon_emissions + t16.carbon_emissions) = 0 then 0
+            when (t25.carbon_emissions - t16.carbon_emissions) = 0 then 0
             else (t25.carbon_emissions - t16.carbon_emissions) / ((t25.carbon_emissions + t16.carbon_emissions) / 2.0)
         end as carbon_emissions_pct_diff,
 
         case
-            when (t25.water_usage + t16.water_usage) = 0 then 0
+            when (t25.water_usage - t16.water_usage) = 0 then 0
             else (t25.water_usage - t16.water_usage) / ((t25.water_usage + t16.water_usage) / 2.0)
         end as water_usage_pct_diff,
 
         case
-            when (t25.energy_consumption + t16.energy_consumption) = 0 then 0
+            when (t25.energy_consumption - t16.energy_consumption) = 0 then 0
             else (t25.energy_consumption - t16.energy_consumption) / ((t25.energy_consumption + t16.energy_consumption) / 2.0)
         end as energy_consumption_pct_diff
 
