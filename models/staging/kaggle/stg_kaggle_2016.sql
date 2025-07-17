@@ -17,7 +17,7 @@
 
 with 
 source as (
-    select * from {{ source("raw", "company_esg_financial_dataset") }}
+    select * from {{ ref('stg_kaggle_corrupted') }}
 ),
 
 renamed as (
@@ -40,6 +40,11 @@ renamed as (
     WaterUsage as water_usage,
     EnergyConsumption as energy_consumption
     from source
+),
+
+filtered as (
+    select * from renamed where year = 2016
 )
 
-select * from renamed where year = 2016
+select * from filtered
+order by company_id
