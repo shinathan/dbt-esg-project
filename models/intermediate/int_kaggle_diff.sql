@@ -47,7 +47,29 @@ joined as (
     from t25
     join t16
       on t25.company_id = t16.company_id
+),
+
+--On second thought, partition by year does nothing because we only have one year (which is 2025)
+add_deciles AS (
+  SELECT
+    *,
+    NTILE(10) OVER (PARTITION BY year ORDER BY market_cap) AS market_cap_decile,
+    NTILE(10) OVER (PARTITION BY year ORDER BY growth_rate) AS growth_rate_decile
+  FROM joined
+),
+
+add_avg_per_decile AS (
+    SELECT
+    *,
+    AVG(market_cap) OVER (PARTITION BY year, market_cap_decile) AS avg_in_market_cap_decile,
+    AVG(growth_rate) OVER (PARTITION BY year, growth_rate_decile) AS avg_in_growth_rate_decile
+    FROM add_deciles
+),
+
+ordered AS (
+    SELECT * FROM add_avg_per_decile ORDER BY company_year
 )
 
-select *
-from joined
+SELECT * FROM ordered 
+
+

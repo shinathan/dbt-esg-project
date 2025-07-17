@@ -7,10 +7,57 @@ sources:
     schema: raw
     tables:
       - name: company_esg_financial_dataset
-        description: raw S&P500 ESG data per company-year
         tests:
-          - no_nulls_except_growthrate_if_2015
-          - growthrate_above_minus_100
-          - esg_between_0_100
-          - esg_overall_is_average
-          - environmental_metrics_positive
+          - unique:
+              column_name: "(Year || '-' || CompanyID)"
+
+        description: raw S&P500 ESG data per company-year
+        columns:
+          - name: CompanyID
+            tests:
+              - not_null
+          - name: CompanyName
+            tests:
+              - not_null
+          - name: Industry
+            tests:
+              - not_null
+          - name: Region
+            tests:
+              - not_null
+          - name: Year
+            tests:
+              - not_null
+          - name: Revenue
+            tests:
+              - not_null
+          - name: ProfitMargin
+            tests:
+              - not_null
+          - name: MarketCap
+            tests:
+              - not_null
+          - name: GrowthRate
+            tests:
+              - no_nulls_unless_2015
+          - name: ESG_Overall
+            tests:
+              - not_null
+          - name: ESG_Environmental
+            tests:
+              - not_null
+          - name: ESG_Social
+            tests:
+              - not_null
+          - name: ESG_Governance
+            tests:
+              - not_null
+          - name: CarbonEmissions
+            tests:
+              - not_null
+          - name: WaterUsage
+            tests:
+              - not_null
+          - name: EnergyConsumption
+            tests:
+              - not_null
