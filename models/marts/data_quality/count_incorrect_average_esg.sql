@@ -1,7 +1,4 @@
-{% set datasets = [
-  'stg_kaggle_2016',
-  'stg_kaggle_2025',
-] %}
+{% set datasets = ['stg_kaggle_2016_corrupted', 'stg_kaggle_2025_corrupted'] %}
 
 WITH
 {%- for dataset in datasets %}

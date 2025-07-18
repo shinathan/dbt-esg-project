@@ -1,11 +1,11 @@
 with
 t16 as (
     select *
-    from {{ ref('stg_kaggle_2016') }}
+    from {{ ref('int_kaggle_2016_cleaned') }}
 ),
 t25 as (
     select *
-    from {{ ref('stg_kaggle_2025') }}
+    from {{ ref('int_kaggle_2025_cleaned') }}
 ),
 
 joined as (
